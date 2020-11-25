@@ -6,12 +6,14 @@
         public CourseInstructorsViewModel CourseInstructors { get; set; }
         public MoviesViewModel Movies { get; set; }
         public CreateCourseViewModel CreateCourse { get; set; }
+        public LoginViewModel Login { get; set; }
 
         public MainViewModel()
         {
             Courses = new CoursesViewModel();
             CourseInstructors = new CourseInstructorsViewModel();
             CreateCourse = new CreateCourseViewModel();
+            Login = new LoginViewModel();
             //Movies = new MoviesViewModel();
         }
     }
