@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using UniversityApp.BL.DTOs;
 using UniversityApp.BL.Services.Implements;
@@ -13,6 +15,18 @@ namespace UniversityApp.ViewModels
         private BL.Services.ICourseInstructorService courseInstructorService;
         private ObservableCollection<CourseInstructorDTO> courseInstructor;
         private bool isRefreshing;
+        private string filter;
+        private List<CourseInstructorDTO> AllCourseInstructor { get; set; }
+
+        public string Filter
+        {
+            get { return this.filter; }
+            set
+            {
+                this.SetValue(ref this.filter, value);
+                this.GetInstructorsByName();
+            }
+        }
 
         public ObservableCollection<CourseInstructorDTO> CourseInstructor
         {
@@ -50,6 +64,7 @@ namespace UniversityApp.ViewModels
                 }
 
                 var listCourseInstructors = await courseInstructorService.GetAll(Endpoints.GET_COURSE_INSTRUCTORS);
+                this.AllCourseInstructor = listCourseInstructors.ToList();
                 this.CourseInstructor = new ObservableCollection<CourseInstructorDTO>(listCourseInstructors);
                 this.IsRefreshing = false;
             }
@@ -58,6 +73,16 @@ namespace UniversityApp.ViewModels
                 this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
             }
+        }
+
+        void GetInstructorsByName()
+        {
+            var listCourseInstructor = this.AllCourseInstructor;
+            if (!string.IsNullOrEmpty(this.Filter))
+                listCourseInstructor = listCourseInstructor.Where(x => x.Instructor.LastName.ToLower().Contains(this.Filter.ToLower()) ||
+                                                                       x.Instructor.FirstMidName.ToLower().Contains(this.Filter.ToLower())).ToList();
+
+            this.CourseInstructor = new ObservableCollection<CourseInstructorDTO>(listCourseInstructor);
         }
     }
 }

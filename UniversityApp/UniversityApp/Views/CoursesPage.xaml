@@ -5,6 +5,11 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding Courses}" Padding="20">
+
+            <SearchBar Placeholder="Search courses"
+                       HeightRequest="30"
+                       Text="{Binding Filter}"></SearchBar>
+            
             <ListView ItemsSource="{Binding Courses}" 
                       HasUnevenRows="True"
                       IsPullToRefreshEnabled="True"

@@ -5,6 +5,11 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding CourseInstructors}" Padding="20">
+
+            <SearchBar Placeholder="Search instructors"
+                       HeightRequest="30"
+                       Text="{Binding Filter}"></SearchBar>
+
             <ListView ItemsSource="{Binding CourseInstructor}" 
                       HasUnevenRows="True"
                       IsPullToRefreshEnabled="True"
@@ -19,7 +24,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding Course.Title }"></Label>
-                                <Label Grid.Column="1" Text="{Binding Instructor.LastName }"></Label>
+                                <Label Grid.Column="1" Text="{Binding Instructor.FullName }"></Label>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using UniversityApp.BL.DTOs;
 using UniversityApp.BL.Services.Implements;
@@ -13,6 +15,18 @@ namespace UniversityApp.ViewModels
         private BL.Services.ICourseService courseService;
         private ObservableCollection<CourseDTO> courses;
         private bool isRefreshing;
+        private string filter;
+        private List<CourseDTO> AllCourses { get; set; }
+
+        public string Filter
+        {
+            get { return this.filter; }
+            set
+            {
+                this.SetValue(ref this.filter, value);
+                this.GetCoursesByTitle();
+            }
+        }
 
         public ObservableCollection<CourseDTO> Courses
         {
@@ -50,6 +64,7 @@ namespace UniversityApp.ViewModels
                 }
 
                 var listCourses = await courseService.GetAll(Endpoints.GET_COURSES);
+                this.AllCourses = listCourses.ToList();
                 this.Courses = new ObservableCollection<CourseDTO>(listCourses);
                 this.IsRefreshing = false;
             }
@@ -58,6 +73,15 @@ namespace UniversityApp.ViewModels
                 this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
             }
+        }
+
+        void GetCoursesByTitle()
+        {
+            var listCourses = this.AllCourses;
+            if (!string.IsNullOrEmpty(this.Filter))
+                listCourses = listCourses.Where(x => x.Title.ToLower().Contains(this.Filter.ToLower())).ToList();
+
+            this.Courses = new ObservableCollection<CourseDTO>(listCourses);
         }
     }
 }
