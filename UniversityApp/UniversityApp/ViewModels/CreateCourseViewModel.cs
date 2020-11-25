@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using UniversityApp.BL.DTOs;
 using UniversityApp.BL.Services.Implements;
 using UniversityApp.Helpers;
-using UniversityApp.Views;
 using Xamarin.Forms;
 
 namespace UniversityApp.ViewModels
@@ -93,6 +90,8 @@ namespace UniversityApp.ViewModels
                 this.Title = string.Empty;
 
                 //Application.Current.MainPage = new NavigationPage(new CoursesPage());
+                //var enrollmentDate = DateTime.UtcNow;
+                //this.EnrollmentDate = DateTime.UtcNow;
             }
             catch (Exception ex)
             {
