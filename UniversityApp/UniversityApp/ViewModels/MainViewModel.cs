@@ -10,20 +10,32 @@ namespace UniversityApp.ViewModels
         public CourseInstructorsViewModel CourseInstructors { get; set; }
         public MoviesViewModel Movies { get; set; }
         public CreateCourseViewModel CreateCourse { get; set; }
+        public EditCourseViewModel EditCourse { get; set; }
         public LoginViewModel Login { get; set; }
         public HomeViewModel Home { get; set; }
 
         public MainViewModel()
         {
+            instance = this;
+
             Courses = new CoursesViewModel();
             CourseInstructors = new CourseInstructorsViewModel();
-            CreateCourse = new CreateCourseViewModel();
+            CreateCourse = new CreateCourseViewModel();            
             Login = new LoginViewModel();
-            Home = new HomeViewModel();
+            Home = new HomeViewModel();            
 
             //Movies = new MoviesViewModel();
 
             CreateCourseCommand = new Command(async () => await GoToCreateCourse());
+        }
+
+        private static MainViewModel instance;
+        public static MainViewModel GetInstance()
+        {
+            if (instance == null)
+                return new MainViewModel();
+
+            return instance;
         }
 
         public Command CreateCourseCommand { get; set; }
