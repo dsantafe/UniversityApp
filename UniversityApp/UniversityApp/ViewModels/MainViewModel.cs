@@ -1,4 +1,8 @@
-﻿namespace UniversityApp.ViewModels
+﻿using System.Threading.Tasks;
+using UniversityApp.Views;
+using Xamarin.Forms;
+
+namespace UniversityApp.ViewModels
 {
     public class MainViewModel
     {
@@ -18,6 +22,14 @@
             Home = new HomeViewModel();
 
             //Movies = new MoviesViewModel();
+
+            CreateCourseCommand = new Command(async () => await GoToCreateCourse());
+        }
+
+        public Command CreateCourseCommand { get; set; }
+        async Task GoToCreateCourse()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new CreateCoursePage());
         }
     }
 }

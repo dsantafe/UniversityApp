@@ -10,7 +10,7 @@
                 <Label Text="New Course"
                        FontSize="Title"
                        HorizontalOptions="Center"
-                       TextColor="Red"></Label>
+                       TextColor="Green"></Label>
 
                 <Grid Margin="10, 0">
                     <Grid.ColumnDefinitions>
@@ -40,7 +40,7 @@
                 <Button Text="Save"
                         CornerRadius="23"
                         HeightRequest="46"
-                        BackgroundColor="Red"
+                        BackgroundColor="Green"
                         TextColor="White"
                         Command="{Binding SaveCommand}"
                         IsEnabled="{Binding IsEnabled}"></Button>
