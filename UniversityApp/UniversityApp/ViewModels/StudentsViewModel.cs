@@ -5,6 +5,7 @@ using UniversityApp.BL.DTOs;
 using UniversityApp.BL.Services.Implements;
 using UniversityApp.Helpers;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace UniversityApp.ViewModels
 {
@@ -58,7 +59,7 @@ namespace UniversityApp.ViewModels
                     return;
                 }
 
-                var listStudents = await studentService.GetAll(Endpoints.GET_STUDENTS_BY_COURSE + this.course.CourseID);                
+                var listStudents = (await studentService.GetAll(Endpoints.GET_STUDENTS_BY_COURSE + this.course.CourseID)).OrderByDescending(x => x.ID);                
                 this.Students = new ObservableCollection<StudentDTO>(listStudents);
                 this.IsRefreshing = false;
             }

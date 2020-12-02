@@ -73,7 +73,7 @@ namespace UniversityApp.ViewModels
                     return;
                 }
 
-                var listCourses = (await courseService.GetAll(Endpoints.GET_COURSES)).Select(x => ToCourseItemViewModel(x));
+                var listCourses = ((await courseService.GetAll(Endpoints.GET_COURSES)).Select(x => ToCourseItemViewModel(x))).OrderByDescending(x => x.Title);
                 this.AllCourses = listCourses.ToList();
                 this.Courses = new ObservableCollection<CourseItemViewModel>(listCourses);
                 this.IsRefreshing = false;
