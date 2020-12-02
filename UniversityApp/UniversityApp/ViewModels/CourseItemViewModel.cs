@@ -18,14 +18,22 @@ namespace UniversityApp.ViewModels
 
             EditCourseCommand = new Command(async () => await EditCourse());
             DeleteCourseCommand = new Command(async () => await DeleteCourse());
+            StudentCourseCommand = new Command(async () => await StudentsByCourse());
         }
 
         public Command EditCourseCommand { get; set; }
         public Command DeleteCourseCommand { get; set; }
+        public Command StudentCourseCommand { get; set; }
         async Task EditCourse()
         {
             MainViewModel.GetInstance().EditCourse = new EditCourseViewModel(this);
             await Application.Current.MainPage.Navigation.PushAsync(new EditCoursePage());
+        }
+
+        async Task StudentsByCourse()
+        {
+            MainViewModel.GetInstance().Students = new StudentsViewModel(this);
+            await Application.Current.MainPage.Navigation.PushAsync(new StudentsPage());
         }
 
         async Task DeleteCourse()

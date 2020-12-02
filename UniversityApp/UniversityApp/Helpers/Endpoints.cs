@@ -13,5 +13,7 @@
         #endregion
 
         public static string GET_COURSE_INSTRUCTORS = "/api/CourseInstructors/";
+
+        public static string GET_STUDENTS_BY_COURSE = "/api/Students/GetStudentsByCourseId/";
     }
 }
